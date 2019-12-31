@@ -6,7 +6,8 @@ import Book from "./Components/Book";
 class BooksApp extends React.Component {
   state = {
     books: [],
-    showSearchPage: false
+    showSearchPage: false,
+    query: ""
   };
 
   componentDidMount() {
@@ -25,7 +26,19 @@ class BooksApp extends React.Component {
     }));
   };
 
+  updateQuery = event => {
+    this.setState({
+      query: event
+    });
+  };
+
   render() {
+    const showingBooks =
+      this.state.query === ""
+        ? this.state.books
+        : this.state.books.filter(b =>
+            b.title.toLowerCase().includes(this.state.query.toLowerCase())
+          );
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -38,11 +51,28 @@ class BooksApp extends React.Component {
                 Close
               </button>
               <div className="search-books-input-wrapper">
-                <input type="text" placeholder="Search by title or author" />
+                <input
+                  type="text"
+                  placeholder="Search by title or author"
+                  value={this.state.query}
+                  onChange={e => this.updateQuery(e.target.value)}
+                />
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                {showingBooks.map((book, index) => (
+                  <li key={book.title}>
+                    <Book
+                      book={book}
+                      title={book.title}
+                      author={book.authors[0]}
+                      backgroundImage={book.imageLinks.thumbnail}
+                      updateBook={this.updateBookShelf(index)}
+                    />
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
         ) : (
