@@ -3,11 +3,94 @@ import * as BooksAPI from "./BooksAPI";
 import "./App.css";
 import Book from "./Components/Book";
 
+const terms = [
+  "Android",
+  "Art",
+  "Artificial Intelligence",
+  "Astronomy",
+  "Austen",
+  "Baseball",
+  "Basketball",
+  "Bhagat",
+  "Biography",
+  "Brief",
+  "Business",
+  "Camus",
+  "Cervantes",
+  "Christie",
+  "Classics",
+  "Comics",
+  "Cook",
+  "Cricket",
+  "Cycling",
+  "Desai",
+  "Design",
+  "Development",
+  "Digital Marketing",
+  "Drama",
+  "Drawing",
+  "Dumas",
+  "Education",
+  "Everything",
+  "Fantasy",
+  "Film",
+  "Finance",
+  "First",
+  "Fitness",
+  "Football",
+  "Future",
+  "Games",
+  "Gandhi",
+  "Homer",
+  "Horror",
+  "Hugo",
+  "Ibsen",
+  "Journey",
+  "Kafka",
+  "King",
+  "Lahiri",
+  "Larsson",
+  "Learn",
+  "Literary Fiction",
+  "Make",
+  "Manage",
+  "Marquez",
+  "Money",
+  "Mystery",
+  "Negotiate",
+  "Painting",
+  "Philosophy",
+  "Photography",
+  "Poetry",
+  "Production",
+  "Programming",
+  "React",
+  "Redux",
+  "River",
+  "Robotics",
+  "Rowling",
+  "Satire",
+  "Science Fiction",
+  "Shakespeare",
+  "Singh",
+  "Swimming",
+  "Tale",
+  "Thrun",
+  "Time",
+  "Tolstoy",
+  "Travel",
+  "Ultimate",
+  "Virtual Reality",
+  "Web Development",
+  "iOS"
+];
+
 class BooksApp extends React.Component {
   state = {
     books: [],
     showSearchPage: false,
-    query: ""
+    query: "",
+    search: []
   };
 
   componentDidMount() {
@@ -27,18 +110,28 @@ class BooksApp extends React.Component {
   };
 
   updateQuery = event => {
-    this.setState({
-      query: event
-    });
+    this.setState(
+      {
+        query: event
+      },
+      () => this.searchBooks(this.state.query)
+    );
   };
 
+  searchBooks = querys => {
+    if (terms.includes(this.state.query.trim())) {
+      BooksAPI.search(querys.trim()).then(data => {
+        this.setState({
+          search: data
+        });
+      });
+    } else {
+      this.setState({
+        search: []
+      });
+    }
+  };
   render() {
-    const showingBooks =
-      this.state.query === ""
-        ? this.state.books
-        : this.state.books.filter(b =>
-            b.title.toLowerCase().includes(this.state.query.toLowerCase())
-          );
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -61,13 +154,17 @@ class BooksApp extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                {showingBooks.map((book, index) => (
-                  <li key={book.title}>
+                {this.state.search.map((book, index) => (
+                  <li key={book.id}>
                     <Book
                       book={book}
                       title={book.title}
-                      author={book.authors[0]}
-                      backgroundImage={book.imageLinks.thumbnail}
+                      author={book.authors}
+                      backgroundImage={
+                        book.imageLinks
+                          ? book.imageLinks.thumbnail
+                          : "https://read.macmillan.com/simple-book-page-template/book-cover-placeholder/"
+                      }
                       updateBook={this.updateBookShelf(index)}
                     />
                   </li>
@@ -88,7 +185,7 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                       {this.state.books.map((book, index) => {
                         return book.shelf === "currentlyReading" ? (
-                          <li key={index}>
+                          <li key={book.id}>
                             <Book
                               book={book}
                               title={book.title}
@@ -108,7 +205,7 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                       {this.state.books.map((book, index) => {
                         return book.shelf === "wantToRead" ? (
-                          <li key={index}>
+                          <li key={book.id}>
                             <Book
                               book={book}
                               title={book.title}
@@ -128,7 +225,7 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                       {this.state.books.map((book, index) => {
                         return book.shelf === "read" ? (
-                          <li key={index}>
+                          <li key={book.id}>
                             <Book
                               book={book}
                               title={book.title}
