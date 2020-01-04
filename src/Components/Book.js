@@ -24,9 +24,19 @@ class Book extends Component {
               height: 193,
               backgroundImage: `url(${this.state.backgroundImage})`
             }}
-          ></div>
+          />
           <div className="book-shelf-changer">
-            <select onChange={this.handleChange}>
+            <select
+              onChange={e => {
+                this.handleChange(e);
+                if (this.props.addBook) {
+                  this.props.addBook({
+                    ...this.props.book,
+                    shelf: e.target.value
+                  });
+                }
+              }}
+            >
               <option
                 value="move"
                 style={{ backgroundColor: "#2e7c31", color: "white" }}

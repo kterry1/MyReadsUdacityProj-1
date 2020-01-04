@@ -101,6 +101,12 @@ class BooksApp extends React.Component {
     });
   }
 
+  addBook = book => {
+    this.setState(currentState => ({
+      books: [...currentState.books, book]
+    }));
+  };
+
   updateBookShelf = i => shelf => {
     this.setState(currentState => ({
       books: currentState.books.map((book, diffIndex) => {
@@ -131,6 +137,7 @@ class BooksApp extends React.Component {
       });
     }
   };
+
   render() {
     return (
       <div className="app">
@@ -139,7 +146,9 @@ class BooksApp extends React.Component {
             <div className="search-books-bar">
               <button
                 className="close-search"
-                onClick={() => this.setState({ showSearchPage: false })}
+                onClick={() => {
+                  this.setState({ showSearchPage: false });
+                }}
               >
                 Close
               </button>
@@ -166,6 +175,7 @@ class BooksApp extends React.Component {
                           : "https://read.macmillan.com/simple-book-page-template/book-cover-placeholder/"
                       }
                       updateBook={this.updateBookShelf(index)}
+                      addBook={this.addBook}
                     />
                   </li>
                 ))}
