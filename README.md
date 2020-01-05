@@ -1,12 +1,12 @@
 # MyReads Project
 
-I built the functionality as my _MyReads Udacity Project_.
+I built the functionality for this application as my _MyReads Udacity Project_.
 
 ## Get Started
 
 - Run `git clone https://github.com/kterry1/MyReadsUdacityProj-1.git`
 - install all project dependencies with `npm install`
-- start the development server with `npm start`
+- start the server with `npm start`
 
 ## Functionality
 
