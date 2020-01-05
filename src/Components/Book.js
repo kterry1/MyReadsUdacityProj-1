@@ -43,9 +43,32 @@ class Book extends Component {
               >
                 Move to...
               </option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
+              <option
+                value="currentlyReading"
+                className={
+                  this.props.book.shelf === "currentlyReading"
+                    ? "currentShelf"
+                    : null
+                }
+              >
+                Currently Reading
+              </option>
+              <option
+                value="wantToRead"
+                className={
+                  this.props.book.shelf === "wantToRead" ? "currentShelf" : null
+                }
+              >
+                Want to Read
+              </option>
+              <option
+                value="read"
+                className={
+                  this.props.book.shelf === "read" ? "currentShelf" : null
+                }
+              >
+                Read
+              </option>
               <option value="none">None</option>
             </select>
           </div>
