@@ -59,6 +59,8 @@ class BooksApp extends React.Component {
   };
 
   render() {
+    const { books, query, search } = this.state;
+    const { updateBookShelf, addBook, updateQuery } = this;
     return (
       <div className="app">
         <Route
@@ -66,12 +68,12 @@ class BooksApp extends React.Component {
           path="/search"
           render={() => (
             <SearchPage
-              books={this.state.books}
-              query={this.state.query}
-              search={this.state.search}
-              updateBookShelf={this.updateBookShelf}
-              addBook={this.addBook}
-              updateQuery={this.updateQuery}
+              books={books}
+              query={query}
+              search={search}
+              updateBookShelf={updateBookShelf}
+              addBook={addBook}
+              updateQuery={updateQuery}
             />
           )}
         />
@@ -80,11 +82,11 @@ class BooksApp extends React.Component {
           path="/"
           render={() => (
             <ShelvesPage
-              books={this.state.books}
-              query={this.state.query}
-              search={this.state.search}
-              updateBookShelf={this.updateBookShelf}
-              addBook={this.addBook}
+              books={books}
+              query={query}
+              search={search}
+              updateBookShelf={updateBookShelf}
+              addBook={addBook}
             />
           )}
         />
