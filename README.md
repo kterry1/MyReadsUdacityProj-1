@@ -1,60 +1,24 @@
 # MyReads Project
 
-This is the MyReads Application that I built the functionality for.
+I built the functionality as my _MyReads Udacity Project_.
 
 ## Get Started
 
-To get started developing right away:
-
+- Run `git clone https://github.com/kterry1/MyReadsUdacityProj-1.git`
 - install all project dependencies with `npm install`
 - start the development server with `npm start`
 
-## Backend Server
+## Functionality
 
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+- On the main page, you can choose between whether a book should be on the **Currently Reading**, **Want to Read**, or **Read shelf**. The books can be moved between shelves by clicking on the green dropdown on any book and selecting a different shelf.
 
-- [`getAll`](#getall)
-- [`update`](#update)
-- [`search`](#search)
+- On the bottom right of the main page, there is an `Add Button` button marked with a `+`. Feel free to click this button to be taken to the search page.
 
-### `getAll`
+- Once on the search page, search through the books with the terms which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work when searching.
 
-Method Signature:
+- From the search page, you can also add any of the books to the shelves on the main page with the books' green dropdown options.
 
-```js
-getAll();
-```
-
-- Returns a Promise which resolves to a JSON object containing a collection of book objects.
-- This collection represents the books currently in the bookshelves in your app.
-
-### `update`
-
-Method Signature:
-
-```js
-update(book, shelf);
-```
-
-- book: `<Object>` containing at minimum an `id` attribute
-- shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]
-- Returns a Promise which resolves to a JSON object containing the response data of the POST request
-
-### `search`
-
-Method Signature:
-
-```js
-search(query);
-```
-
-- query: `<String>`
-- Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
-- These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
-
-## Important
-
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
+- On the left of the search input area, there is a back button that can be used to take you to the main page. The browser's back button will also take you to the main page.
 
 ## Create React App
 
