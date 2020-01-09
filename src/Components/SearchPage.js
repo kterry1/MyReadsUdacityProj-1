@@ -3,11 +3,28 @@ import Book from "../Components/Book";
 import { Link } from "react-router-dom";
 
 function SearchPage(props) {
-  const { search, query, addBook, updateBookShelf, updateQuery } = props;
+  const {
+    search,
+    query,
+    addBook,
+    updateBookShelf,
+    updateQuery,
+    books,
+    clearSearch
+  } = props;
+  const parseShelf = (books, search) =>
+    search.map(s => {
+      const book = books.find(b => b.id === s.id);
+      if (book) {
+        s.shelf = book.shelf;
+      }
+      return s;
+    });
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <Link to="/" className="close-search">
+        <Link to="/" className="close-search" onClick={clearSearch}>
           Close
         </Link>
         <div className="search-books-input-wrapper">
@@ -21,7 +38,7 @@ function SearchPage(props) {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {search.map((book, index) => (
+          {parseShelf(books, search).map((book, index) => (
             <li key={book.id}>
               <Book
                 book={book}
