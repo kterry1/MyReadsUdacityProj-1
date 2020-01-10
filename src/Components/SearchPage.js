@@ -17,6 +17,8 @@ function SearchPage(props) {
       const book = books.find(b => b.id === s.id);
       if (book) {
         s.shelf = book.shelf;
+      } else {
+        s.shelf = "none";
       }
       return s;
     });

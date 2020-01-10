@@ -54,7 +54,9 @@ class Book extends Component {
               <option value="read">
                 {this.props.book.shelf === "read" ? "✔" : null} Read
               </option>
-              <option value="none">None</option>
+              <option value="none">
+                {this.props.book.shelf === "none" ? "✔" : null}None
+              </option>
             </select>
           </div>
         </div>
